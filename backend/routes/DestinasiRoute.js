@@ -1,22 +1,23 @@
+// routes/DestinasiRoute.js
 import express from 'express';
-import { 
-    getDestinasi, 
-    getDestinasiById, 
-    createDestinasi, 
-    updateDestinasi, 
-    deleteDestinasi 
+import { verifyToken, verifyAdmin } from '../middleware/AuthMiddleware.js';
+import {
+  getAllDestinasi,
+  getDestinasiById,
+  createDestinasi,
+  updateDestinasi,
+  deleteDestinasi
 } from '../controllers/DestinasiController.js';
-import { verifyAdmin } from '../middleware/AuthMiddleware.js';
 
 const router = express.Router();
 
-// Rute publik (dapat diakses semua pengguna)
-router.get('/destinasi', getDestinasi);
-router.get('/destinasi/:id', getDestinasiById);
+// Endpoint publik, semua user bisa lihat destinasi
+router.get('/', getAllDestinasi);
+router.get('/:id', getDestinasiById);
 
-// Rute admin (hanya dapat diakses oleh admin)
-router.post('/destinasi', verifyAdmin, createDestinasi);
-router.patch('/destinasi/:id', verifyAdmin, updateDestinasi);
-router.delete('/destinasi/:id', verifyAdmin, deleteDestinasi);
+// Endpoint yang perlu login sebagai admin
+router.post('/', verifyAdmin, createDestinasi);
+router.put('/:id', verifyAdmin, updateDestinasi);
+router.delete('/:id', verifyAdmin, deleteDestinasi);
 
 export default router;

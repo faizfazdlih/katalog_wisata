@@ -17,7 +17,7 @@ try {
     await db.authenticate();
     console.log('Database connected...');
     // Sync database (uncomment jika ingin membuat tabel otomatis)
-    // await db.sync();
+    await db.sync();
 } catch (error) {
     console.error('Connection error:', error);
 }
@@ -29,7 +29,7 @@ app.use(express.json());
 // Routes
 app.use('/api', PenggunaRoute);
 app.use('/api', KategoriRoute);
-app.use('/api', DestinasiRoute);
+app.use('/api/destinasi', DestinasiRoute);
 app.use('/api', GambarRoute);
 app.use('/api', UlasanRoute);
 app.use('/api', FavoritRoute);
